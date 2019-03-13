@@ -4,4 +4,4 @@ from django.apps import AppConfig
 class ProductConfig(AppConfig):
     name = 'eshop.product'
     label = 'products'
-    verbose_name = 'Application'
+    verbose_name = 'Shop'
