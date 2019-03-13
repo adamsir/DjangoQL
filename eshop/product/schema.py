@@ -20,7 +20,7 @@ class Query(object):
                               name=graphene.String())
     all_categories = graphene.List(CategoryType)
 
-    ingredient = graphene.Field(ProductType,
+    product = graphene.Field(ProductType,
                                 id=graphene.Int(),
                                 name=graphene.String())
     all_products = graphene.List(ProductType)
@@ -44,7 +44,7 @@ class Query(object):
 
         return None
 
-    def resolve_ingredient(self, args, **kwargs):
+    def resolve_product(self, args, **kwargs):
         id = args.get('id')
         name = args.get('name')
 
