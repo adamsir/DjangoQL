@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from eshop.ingredients.models import Category, Ingredient
+from eshop.product.models import Category, Product
 
 
-@admin.register(Ingredient)
-class IngredientAdmin(admin.ModelAdmin):
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'category')
     list_editable = ('name', 'category')
 

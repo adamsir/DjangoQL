@@ -1,7 +1,7 @@
 import graphene
 from graphene_django.types import DjangoObjectType
 
-from eshop.ingredients.models import Category, Ingredient
+from eshop.product.models import Category, Product
 
 
 class CategoryType(DjangoObjectType):
@@ -9,9 +9,9 @@ class CategoryType(DjangoObjectType):
         model = Category
 
 
-class IngredientType(DjangoObjectType):
+class ProductType(DjangoObjectType):
     class Meta:
-        model = Ingredient
+        model = Product
 
 
 class Query(object):
@@ -20,17 +20,17 @@ class Query(object):
                               name=graphene.String())
     all_categories = graphene.List(CategoryType)
 
-    ingredient = graphene.Field(IngredientType,
+    ingredient = graphene.Field(ProductType,
                                 id=graphene.Int(),
                                 name=graphene.String())
-    all_ingredients = graphene.List(IngredientType)
+    all_products = graphene.List(ProductType)
 
     def resolve_all_categories(self, args, **kwargs):
         return Category.objects.all()
 
-    def resolve_all_ingredients(self, args, **kwargs):
+    def resolve_all_products(self, args, **kwargs):
         # We can easily optimize query count in the resolve method
-        return Ingredient.objects.select_related('category').all()
+        return Product.objects.select_related('category').all()
 
     def resolve_category(self, args, **kwargs):
         id = args.get('id')
@@ -49,9 +49,9 @@ class Query(object):
         name = args.get('name')
 
         if id is not None:
-            return Ingredient.objects.get(pk=id)
+            return Product.objects.get(pk=id)
 
         if name is not None:
-            return Ingredient.objects.get(name=name)
+            return Product.objects.get(name=name)
 
         return None
